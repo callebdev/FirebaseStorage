@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FirebaseStorage</string>
+    <string name="btnPdf_txt">Upload a document (pdf)</string>
+    <string name="btnDocx_txt">Upload a document (docx)</string>
+    <string name="btnImg_txt">Upload a image</string>
+    <string name="btnVideo_txt">Upload a video</string>
+    <string name="btnMusic_txt">Upload a music</string>
+</resources>
