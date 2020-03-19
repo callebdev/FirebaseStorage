@@ -4,7 +4,7 @@ This repository contains an Android app written in Kotlin that uploads files (do
 ## How does the app work?
 The app has five buttons that allow you to choose the file type you want to upload.
 When you click on a button, through a ACTION_GET_CONTENT intent it allows you to choose a file to upload.
-Then it shows the file URI while uploading the image, after uploading it show you the URL too.
+Then it shows the file URI while uploading the image, after uploading it shows you the URL too.
 
 ## Screenshots
 <table width="100%">
