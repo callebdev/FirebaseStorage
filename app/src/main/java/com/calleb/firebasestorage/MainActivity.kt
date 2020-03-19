@@ -1,115 +1,99 @@
 package com.calleb.firebasestorage
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Toast
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import com.calleb.firebasestorage.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var uri: Uri
-    private lateinit var mStorageRef: StorageReference
+    private lateinit var viewModel: MainViewModel
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        mStorageRef = FirebaseStorage.getInstance().getReference(UPLOADED_FILES)
+        initComponents()
+    }
+
+    private fun initComponents() {
+
+        // ViewModel
+        val repository = MainRepository()
+        val factory = MainViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
+
+        //ClickListeners
+        binding.buttonDocx.setOnClickListener { uploadDocx() }
+        binding.buttonImage.setOnClickListener { uploadImage() }
+        binding.buttonMusic.setOnClickListener { uploadAudio() }
+        binding.buttonPdf.setOnClickListener { uploadPdf() }
+        binding.buttonVideo.setOnClickListener { uploadVideo() }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
             when (requestCode) {
-                PDF -> {
-                    uri = data!!.data!!
-                    txtUri.text = uri.toString()
-                    upload()
-                }
-
-                DOCX -> {
-                    uri = data!!.data!!
-                    txtUri.text = uri.toString()
-                    upload()
-                }
-
-                AUDIO -> {
-                    uri = data!!.data!!
-                    txtUri.text = uri.toString()
-                    upload()
-                }
-
-                VIDEO -> {
-                    uri = data!!.data!!
-                    txtUri.text = uri.toString()
-                    upload()
-                }
-
-                IMAGE -> {
-                    uri = data!!.data!!
-                    txtUri.text = uri.toString()
-                    upload()
-                }
+                PDF -> uploadData(data)
+                DOCX -> uploadData(data)
+                AUDIO -> uploadData(data)
+                VIDEO -> uploadData(data)
+                IMAGE -> uploadData(data)
             }
         }
     }
 
-    private fun upload() {
-        val mReference = mStorageRef.child(uri.lastPathSegment!!)
-        try {
-            mReference.putFile(uri).addOnSuccessListener { taskSnapshot: UploadTask.TaskSnapshot? ->
-                val url = taskSnapshot!!.uploadSessionUri
-                txtDwn.text = url.toString()
-                Toast.makeText(this, "Your file was successful uploaded", Toast.LENGTH_SHORT).show()
-            }
-        } catch (ex: Exception) {
-            Toast.makeText(this, "Error! Your file wasn't uploaded. Try again.", Toast.LENGTH_LONG)
-                .show()
-            Log.d("MainActivity", "Upload failed error: ${ex.message}")
+    private fun uploadData(data: Intent?) {
+        data?.let {
+            txtUri.text = data.data.toString()
+            viewModel.upload(data.data!!)
         }
     }
 
-    fun uploadPdf(view: View) {
+    private fun uploadPdf() {
         Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "application/pdf"
             startActivityForResult(Intent.createChooser(this, "Select a PDF to upload"), PDF)
         }
     }
 
-    fun uploadImage(view: View) {
+    private fun uploadImage() {
         Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "image/*"
             startActivityForResult(Intent.createChooser(this, "Select an image to upload"), IMAGE)
         }
     }
 
-    fun uploadVideo(view: View) {
+    private fun uploadVideo() {
         Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "video/*"
             startActivityForResult(Intent.createChooser(this, "Select a video to upload"), VIDEO)
         }
     }
 
-    fun uploadAudio(view: View) {
+    private fun uploadAudio() {
         Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "audio/*"
             startActivityForResult(Intent.createChooser(this, "Select an audio to upload"), AUDIO)
         }
     }
 
-    fun uploadDocx(view: View) {
+    private fun uploadDocx() {
         Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "docx/*"
-            startActivityForResult(Intent.createChooser(this, "Select a document (.docx) to upload"), DOCX)
+            startActivityForResult(
+                Intent.createChooser(
+                    this,
+                    "Select a document (.docx) to upload"
+                ), DOCX
+            )
         }
     }
-
 
 }
