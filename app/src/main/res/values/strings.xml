@@ -6,4 +6,6 @@
     <string name="btnVideo_txt">Upload a video</string>
     <string name="btnMusic_txt">Upload a music</string>
     <string name="firebase_storage_image">Firebase Storage Image</string>
+    <string name="success_message">Your file was successfuly uploaded</string>
+    <string name="error_message">Error! Your file wasn\'t uploaded. Try again</string>
 </resources>

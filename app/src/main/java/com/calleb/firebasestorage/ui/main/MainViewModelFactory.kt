@@ -1,7 +1,8 @@
-package com.calleb.firebasestorage
+package com.calleb.firebasestorage.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.calleb.firebasestorage.data.MainRepository
 import java.lang.IllegalArgumentException
 
 class MainViewModelFactory (private val repository: MainRepository): ViewModelProvider.Factory{

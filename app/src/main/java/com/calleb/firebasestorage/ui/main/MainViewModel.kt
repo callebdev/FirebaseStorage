@@ -1,10 +1,15 @@
-package com.calleb.firebasestorage
+package com.calleb.firebasestorage.ui.main
 
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.calleb.firebasestorage.FAILED
+import com.calleb.firebasestorage.UPLOADED
+import com.calleb.firebasestorage.UPLOADING
+import com.calleb.firebasestorage.ERROR
+import com.calleb.firebasestorage.data.MainRepository
 
 class MainViewModel(private val repository: MainRepository) : ViewModel() {
     var state = MutableLiveData<String>()
@@ -33,6 +38,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
             }
         }.addOnFailureListener {
             state.value = FAILED
+            _fileUrl.value = ERROR
             Log.d("ViewModel", "Upload failed error: ${it.message}")
         }
     }

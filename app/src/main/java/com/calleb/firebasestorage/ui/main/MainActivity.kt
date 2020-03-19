@@ -1,4 +1,4 @@
-package com.calleb.firebasestorage
+package com.calleb.firebasestorage.ui.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,8 +7,9 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.calleb.firebasestorage.*
+import com.calleb.firebasestorage.data.MainRepository
 import com.calleb.firebasestorage.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,22 +18,26 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_main
+        )
 
         initComponents()
 
+        getUploadResult()
+    }
+
+    private fun getUploadResult() {
         viewModel.state.observe(this, Observer { state ->
             when (state) {
                 UPLOADED -> {
-                    Toast.makeText(this, "Your file was successful uploaded", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, getString(R.string.success_message), Toast.LENGTH_SHORT)
                         .show()
                     viewModel.onStateSet()
                 }
                 FAILED -> {
                     Toast.makeText(
-                        this,
-                        "Error! Your file wasn't uploaded. Try again",
-                        Toast.LENGTH_SHORT
+                        this, getString(R.string.error_message), Toast.LENGTH_SHORT
                     ).show()
                     viewModel.onStateSet()
                 }
@@ -44,7 +49,8 @@ class MainActivity : AppCompatActivity() {
 
         // ViewModel
         val repository = MainRepository()
-        val factory = MainViewModelFactory(repository)
+        val factory =
+            MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
         // ClickListeners
@@ -82,7 +88,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.clearText()
         Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "application/pdf"
-            startActivityForResult(Intent.createChooser(this, "Select a PDF to upload"), PDF)
+            startActivityForResult(Intent.createChooser(this, "Select a PDF to upload"),
+                PDF
+            )
         }
     }
 
@@ -90,7 +98,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.clearText()
         Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "image/*"
-            startActivityForResult(Intent.createChooser(this, "Select an image to upload"), IMAGE)
+            startActivityForResult(Intent.createChooser(this, "Select an image to upload"),
+                IMAGE
+            )
         }
     }
 
@@ -98,7 +108,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.clearText()
         Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "video/*"
-            startActivityForResult(Intent.createChooser(this, "Select a video to upload"), VIDEO)
+            startActivityForResult(Intent.createChooser(this, "Select a video to upload"),
+                VIDEO
+            )
         }
     }
 
@@ -106,7 +118,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.clearText()
         Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "audio/*"
-            startActivityForResult(Intent.createChooser(this, "Select an audio to upload"), AUDIO)
+            startActivityForResult(Intent.createChooser(this, "Select an audio to upload"),
+                AUDIO
+            )
         }
     }
 

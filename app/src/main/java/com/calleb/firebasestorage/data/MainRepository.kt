@@ -1,6 +1,7 @@
-package com.calleb.firebasestorage
+package com.calleb.firebasestorage.data
 
 import android.net.Uri
+import com.calleb.firebasestorage.UPLOADED_FILES
 import com.google.firebase.storage.FirebaseStorage
 
 class MainRepository {

@@ -6,17 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.calleb.firebasestorage.MainViewModel" />
+            type="com.calleb.firebasestorage.ui.main.MainViewModel" />
     </data>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:context=".MainActivity">
+            tools:context=".ui.main.MainActivity">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
