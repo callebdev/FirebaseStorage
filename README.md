@@ -7,7 +7,11 @@ When you click on a button, through a ACTION_GET_CONTENT intent it allows you to
 Then it shows the file URI while uploading the image, after uploading it show you the URL too.
 
 ## Screenshots
-![](https://github.com/callebdev/FirebaseStorage/blob/master/ScreenshotsFirebaseStorage/Screenshot_20200318-212427.png)
-![](https://github.com/callebdev/FirebaseStorage/blob/master/ScreenshotsFirebaseStorage/Screenshot_20200318-212452.png)
-![](https://github.com/callebdev/FirebaseStorage/blob/master/ScreenshotsFirebaseStorage/Screenshot_20200318-212514.png)
-![](https://github.com/callebdev/FirebaseStorage/blob/master/ScreenshotsFirebaseStorage/Screenshot_20200318-212519.png)
+<table width="100%">
+  <tr>
+    <th width="25%"><img src="https://github.com/callebdev/FirebaseStorage/blob/master/ScreenshotsFirebaseStorage/Screenshot_20200318-212427.png"></th>
+    <th width="25%"><img src="https://github.com/callebdev/FirebaseStorage/blob/master/ScreenshotsFirebaseStorage/Screenshot_20200318-212452.png"></th>
+    <th width="25%"><img src="https://github.com/callebdev/FirebaseStorage/blob/master/ScreenshotsFirebaseStorage/Screenshot_20200318-212514.png"></th>
+    <th width="25%"><img src="https://github.com/callebdev/FirebaseStorage/blob/master/ScreenshotsFirebaseStorage/Screenshot_20200318-212519.png"></th>
+  </tr>
+</table>
