@@ -13,12 +13,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val PDF = 0
-    val DOCX = 1
-    val AUDIO = 2
-    val VIDEO = 3
-    val IMAGE = 4
-
     private lateinit var uri: Uri
     private lateinit var mStorageRef: StorageReference
 

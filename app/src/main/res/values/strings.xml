@@ -5,4 +5,5 @@
     <string name="btnImg_txt">Upload a image</string>
     <string name="btnVideo_txt">Upload a video</string>
     <string name="btnMusic_txt">Upload a music</string>
+    <string name="firebase_storage_image">Firebase Storage Image</string>
 </resources>
