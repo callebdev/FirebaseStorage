@@ -9,3 +9,6 @@ const val AUDIO = 2
 const val VIDEO = 3
 const val IMAGE = 4
 const val UPLOADED_FILES = "Uploaded_files"
+const val FAILED = "Failed"
+const val UPLOADED = "Uploaded"
+const val UPLOADING = "Uploading..."

@@ -3,7 +3,9 @@ package com.calleb.firebasestorage
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.calleb.firebasestorage.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,6 +20,24 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         initComponents()
+
+        viewModel.state.observe(this, Observer { state ->
+            when (state) {
+                UPLOADED -> {
+                    Toast.makeText(this, "Your file was successful uploaded", Toast.LENGTH_SHORT)
+                        .show()
+                    viewModel.onStateSet()
+                }
+                FAILED -> {
+                    Toast.makeText(
+                        this,
+                        "Error! Your file wasn't uploaded. Try again",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    viewModel.onStateSet()
+                }
+            }
+        })
     }
 
     private fun initComponents() {
@@ -27,13 +47,16 @@ class MainActivity : AppCompatActivity() {
         val factory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
-        //ClickListeners
+        // ClickListeners
         binding.buttonDocx.setOnClickListener { uploadDocx() }
         binding.buttonImage.setOnClickListener { uploadImage() }
         binding.buttonMusic.setOnClickListener { uploadAudio() }
         binding.buttonPdf.setOnClickListener { uploadPdf() }
         binding.buttonVideo.setOnClickListener { uploadVideo() }
 
+        // This is used so that databinding can observe the LiveData
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -51,12 +74,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun uploadData(data: Intent?) {
         data?.let {
-            txtUri.text = data.data.toString()
             viewModel.upload(data.data!!)
         }
     }
 
     private fun uploadPdf() {
+        viewModel.clearText()
         Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "application/pdf"
             startActivityForResult(Intent.createChooser(this, "Select a PDF to upload"), PDF)
@@ -64,6 +87,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun uploadImage() {
+        viewModel.clearText()
         Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "image/*"
             startActivityForResult(Intent.createChooser(this, "Select an image to upload"), IMAGE)
@@ -71,6 +95,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun uploadVideo() {
+        viewModel.clearText()
         Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "video/*"
             startActivityForResult(Intent.createChooser(this, "Select a video to upload"), VIDEO)
@@ -78,6 +103,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun uploadAudio() {
+        viewModel.clearText()
         Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "audio/*"
             startActivityForResult(Intent.createChooser(this, "Select an audio to upload"), AUDIO)
@@ -85,6 +111,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun uploadDocx() {
+        viewModel.clearText()
         Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "docx/*"
             startActivityForResult(

@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.calleb.firebasestorage.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,6 +56,7 @@
                     android:layout_height="18dp"
                     android:textAlignment="center"
                     android:textSize="14sp"
+                    android:text="@{viewModel.fileUri}"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -63,6 +67,7 @@
                     android:id="@+id/txtDwn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:text="@{viewModel.fileUrl}"
                     android:textAlignment="center"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
