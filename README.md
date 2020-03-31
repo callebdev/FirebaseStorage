@@ -22,5 +22,12 @@ Then it shows the file URI while uploading the image, after uploading it shows y
   </tr>
 </table>
 
-## Authors
-Initial commits by [Calleb Miquissene](https://github.com/callebdev)
+## Contributors
+
+<img src="https://avatars0.githubusercontent.com/u/38020305?s=460&u=52d642753d59faac2a24a03f17784c756b902fcd&v=4" width="115"><br>
+[Doilio Matsinhe](https://github.com/doilio)
+
+## Author
+
+<img src="https://avatars0.githubusercontent.com/u/42087219?s=460&v=4" width="115"><br>
+[Calleb Miquissene](https://github.com/callebdev)
